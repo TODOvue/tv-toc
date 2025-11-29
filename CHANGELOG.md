@@ -5,6 +5,11 @@ All notable changes to `@todovue/tv-toc` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-11-28
+
+### Fixed
+- Correct CSS file extension for Table of Contents styles.
+
 ## [1.0.0] - 2025-11-28
 
 ### Added
@@ -16,4 +21,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Minimal default styles and BEM-like CSS classes for easy customization.
 - Vite demo with basic and blog-like TOC examples.
 
+[1.0.1]: https://github.com/TODOvue/tv-toc/pull/2/files
 [1.0.0]: https://github.com/TODOvue/tv-toc/pull/1/files
