@@ -7,7 +7,7 @@ export default defineNuxtModule({
     configKey: 'tvToc'
   },
   setup(_options, nuxt) {
-    const cssPath = '@todovue/tv-toc/style.scss';
+    const cssPath = '@todovue/tv-toc/style.css';
     if (!nuxt.options.css.includes(cssPath)) {
       nuxt.options.css.push(cssPath);
     }
