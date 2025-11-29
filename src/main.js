@@ -1,5 +1,9 @@
 import { createApp } from 'vue'
+import { TvDemo } from '@todovue/tv-demo'
 import TvToc from './demo/Demo.vue'
-import './style.css'
+import '@todovue/tv-demo/style.css'
+import './style.scss'
 
-createApp(TvToc).mount('#tv-toc')
+const app = createApp(TvToc)
+app.component('TvDemo', TvDemo)
+app.mount('#tv-toc')
