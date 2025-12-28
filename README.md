@@ -5,7 +5,6 @@
 A lightweight Vue 3 component to render a Table of Contents (TOC) for your articles or documentation, with smooth scrolling and nested sections support.
 
 [![npm](https://img.shields.io/npm/v/@todovue/tv-toc.svg)](https://www.npmjs.com/package/@todovue/tv-toc)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/2a6f2c38-c236-44bb-8d8e-66a86f4295ee/deploy-status)](https://app.netlify.com/projects/tv-toc/deploys)
 [![npm downloads](https://img.shields.io/npm/dm/@todovue/tv-toc.svg)](https://www.npmjs.com/package/@todovue/tv-toc)
 [![npm total downloads](https://img.shields.io/npm/dt/@todovue/tv-toc.svg)](https://www.npmjs.com/package/@todovue/tv-toc)
 ![License](https://img.shields.io/github/license/TODOvue/tv-toc)
@@ -15,7 +14,7 @@ A lightweight Vue 3 component to render a Table of Contents (TOC) for your artic
 ![Last Commit](https://img.shields.io/github/last-commit/TODOvue/tv-toc)
 ![Stars](https://img.shields.io/github/stars/TODOvue/tv-toc?style=social)
 
-> Demo: https://tv-toc.netlify.app/
+> Demo: https://ui.todovue.blog/toc
 
 ---
 ## Table of Contents
