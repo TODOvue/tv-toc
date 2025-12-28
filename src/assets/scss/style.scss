@@ -26,21 +26,74 @@
 
   .tv-toc-item {
     margin-bottom: 0.5rem;
-  }
-
-  .tv-toc-link {
-    text-decoration: none;
-    color: inherit;
-    font-weight: 500;
-    transition: color 0.2s;
+    position: relative;
 
     &:hover {
-      color: $light-button-bg;
+      .tv-toc-link {
+        background-color: rgba($active-color, 0.05);
+      }
+
+      .tv-toc-sublink {
+        background-color: rgba($active-color, 0.05);
+      }
     }
 
     @media (prefers-color-scheme: dark) {
       &:hover {
-        color: $dark-button-bg;
+        .tv-toc-link {
+          background-color: rgba($active-color-dark, 0.05);
+        }
+
+        .tv-toc-sublink {
+          background-color: rgba($active-color-dark, 0.05);
+        }
+      }
+    }
+  }
+
+  .tv-toc-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &:hover {
+      color: $active-color;
+    }
+
+    &.active {
+      color: $active-color;
+      font-weight: 700;
+      background-color: rgba($active-color, 0.1);
+      border-left: 3px solid $active-color;
+      padding-left: calc(1rem - 3px);
+    }
+
+    &.parent-active {
+      color: $active-color;
+      font-weight: 500;
+      border-left: 2px solid rgba($active-color, 0.5);
+      padding-left: calc(1rem - 2px);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      &:hover {
+        color: $active-color-dark;
+      }
+
+      &.active {
+        color: $active-color-dark;
+        background-color: rgba($active-color-dark, 0.1);
+        border-left-color: $active-color-dark;
+      }
+
+      &.parent-active {
+        color: $active-color-dark;
+        border-left-color: rgba($active-color-dark, 0.5);
       }
     }
   }
@@ -49,6 +102,7 @@
     list-style: none;
     padding-left: 1rem;
     margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
     border-left: 2px solid rgba($light-text, 0.1);
 
     @media (prefers-color-scheme: dark) {
@@ -58,23 +112,43 @@
 
   .tv-toc-subitem {
     margin-bottom: 0.25rem;
+    position: relative;
   }
 
   .tv-toc-sublink {
+    display: block;
     text-decoration: none;
     color: inherit;
     font-size: 0.9rem;
     opacity: 0.8;
-    transition: opacity 0.2s, color 0.2s;
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
 
     &:hover {
       opacity: 1;
-      color: $light-button-bg;
+      color: $active-color;
+    }
+
+    &.active {
+      opacity: 1;
+      color: $active-color;
+      font-weight: 700;
+      background-color: rgba($active-color, 0.1);
+      border-left: 3px solid $active-color;
+      padding-left: calc(1rem - 3px);
     }
 
     @media (prefers-color-scheme: dark) {
       &:hover {
-        color: $dark-button-bg;
+        color: $active-color-dark;
+      }
+
+      &.active {
+        color: $active-color-dark;
+        background-color: rgba($active-color-dark, 0.1);
+        border-left-color: $active-color-dark;
       }
     }
   }
@@ -86,15 +160,30 @@
     color: $light-text;
 
     .tv-toc-link:hover {
-      color: $light-button-bg;
+      color: $active-color;
+    }
+
+    .tv-toc-link.active,
+    .tv-toc-link.parent-active {
+      color: $active-color;
+      border-left-color: $active-color;
+    }
+
+    .tv-toc-link.parent-active {
+      border-left-color: rgba($active-color, 0.5);
     }
 
     .tv-toc-sublist {
       border-left-color: rgba($light-text, 0.1);
     }
 
-    .tv-toc-sublink:hover {
-      color: $light-button-bg;
+    .tv-toc-sublink:hover,
+    .tv-toc-sublink.active {
+      color: $active-color;
+    }
+
+    .tv-toc-sublink.active {
+      border-left-color: $active-color;
     }
   }
 }
