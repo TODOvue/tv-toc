@@ -5,7 +5,7 @@ All notable changes to `@todovue/tv-toc` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.1.0] - 2026-01-20
 
 ### Added
 - Introduced a customizable marker for Table of Contents (ToC) items to allow for personalized bullet styles or icons.
@@ -53,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Minimal default styles and BEM-like CSS classes for easy customization.
 - Vite demo with basic and blog-like TOC examples.
 
+[1.1.0]: https://github.com/TODOvue/tv-toc/pull/4/files
 [1.0.2]: https://github.com/TODOvue/tv-toc/pull/3/files
 [1.0.1]: https://github.com/TODOvue/tv-toc/pull/2/files
 [1.0.0]: https://github.com/TODOvue/tv-toc/pull/1/files
