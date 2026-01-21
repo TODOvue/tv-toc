@@ -283,7 +283,6 @@
       &.active {
         color: $active-color-dark;
         background-color: rgba($active-color-dark, 0.1);
-        // Border element handled by CSS vars
       }
     }
   }

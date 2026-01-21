@@ -170,6 +170,6 @@ export const demos = [
       collapsible: true,
       marker: true
     },
-    html: SimpleDoc, // Reusing SimpleDoc for structure
+    html: SimpleDoc,
   }
 ];
