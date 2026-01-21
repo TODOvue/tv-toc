@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Introduced a customizable marker for Table of Contents (ToC) items to allow for personalized bullet styles or icons.
 - Added an active class property to ToC items, enabling specific styling for the currently viewed section to improve navigation clarity.
 - Added `observerOptions` prop to customize IntersectionObserver behavior (rootMargin, threshold).
+- Introduced a scroll progress indicator to the Table of Contents, providing a visual cue of the user's current position within the document.
 
 ### Dependencies
 - Updated `@todovue/tv-demo` to `^1.4.4`.

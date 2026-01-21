@@ -1,15 +1,42 @@
 @use 'variables' as *;
 
 .tv-toc {
+  position: relative;
   padding: 1rem;
   background-color: $light-card-bg;
   border-radius: 8px;
   color: $light-text;
   min-width: 200px;
+  overflow: hidden;
 
   @media (prefers-color-scheme: dark) {
     background-color: $dark-card-bg;
     color: $dark-text;
+  }
+
+  .tv-toc-progress-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: rgba($active-color, 0.1);
+    z-index: 1;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: rgba($active-color-dark, 0.1);
+    }
+  }
+
+  .tv-toc-progress-bar {
+    width: 100%;
+    background: linear-gradient(to bottom, $active-color, lighten($active-color, 20%));
+    transition: height 0.1s linear;
+    border-radius: 0 0 4px 4px;
+
+    @media (prefers-color-scheme: dark) {
+      background: linear-gradient(to bottom, $active-color-dark, lighten($active-color-dark, 20%));
+    }
   }
 
   .tv-toc-title {
@@ -27,6 +54,14 @@
   .tv-toc-item {
     margin-bottom: 0.5rem;
     position: relative;
+    opacity: 0;
+    animation: fadeSlideIn 0.5s ease forwards;
+
+    @for $i from 1 through 20 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.05}s;
+      }
+    }
 
     &:hover {
       .tv-toc-link {
@@ -113,6 +148,14 @@
   .tv-toc-subitem {
     margin-bottom: 0.25rem;
     position: relative;
+    opacity: 0;
+    animation: fadeSlideIn 0.5s ease forwards;
+
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.05 + 0.3}s;
+      }
+    }
   }
 
   .tv-toc-sublink {
@@ -192,4 +235,16 @@
   border-left: 2px solid var(--tv-toc-active-color, #3b82f6);
   padding-left: 8px;
   transition: all 0.2s ease;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

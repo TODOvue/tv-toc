@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useToc } from '../composables/useToc.js'
 
 const props = defineProps({
@@ -39,18 +39,36 @@ const isParentOfActive = (id) => {
   return activeParentId.value === id
 }
 
+const scrollProgress = ref(0)
+
+const updateProgress = () => {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop
+  const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight
+  const scrolled = (scrollTop / docHeight) * 100
+  scrollProgress.value = Math.min(100, Math.max(0, scrolled))
+}
+
 onMounted(() => {
   setupObserver()
+  window.addEventListener('scroll', updateProgress)
+  updateProgress()
 })
 
 onUnmounted(() => {
   cleanup()
+  window.removeEventListener('scroll', updateProgress)
 })
 </script>
 
 
 <template>
   <nav class="tv-toc">
+    <div class="tv-toc-progress-container" v-if="toc?.links?.length">
+      <div
+        class="tv-toc-progress-bar"
+        :style="{ height: `${scrollProgress}%` }"
+      ></div>
+    </div>
     <h3 v-if="toc?.title" class="tv-toc-title">{{ toc.title }}</h3>
     <ul class="tv-toc-list">
       <li v-for="link in toc?.links" :key="link.id" class="tv-toc-item">
