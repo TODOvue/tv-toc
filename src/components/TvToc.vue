@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, computed, watch } from 'vue'
 import { useToc } from '../composables/useToc.js'
 
 const props = defineProps({
@@ -55,7 +55,6 @@ const isParentOfActive = (id) => {
   return activeParentId.value === id
 }
 
-import { watch } from 'vue'
 watch(activeParentId, (newId) => {
   if (props.collapsible && newId && !expandedIds.value.has(newId)) {
     const newSet = new Set(expandedIds.value)
@@ -66,12 +65,29 @@ watch(activeParentId, (newId) => {
 
 const scrollProgress = ref(0)
 
-const updateProgress = () => {
-  const scrollTop = window.scrollY || document.documentElement.scrollTop
-  const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight
-  const scrolled = (scrollTop / docHeight) * 100
-  scrollProgress.value = Math.min(100, Math.max(0, scrolled))
-}
+const flatIds = computed(() => {
+  const ids = []
+  const traverse = (items) => {
+    if (!items) return
+    for (const item of items) {
+      ids.push(item.id)
+      if (item.children) traverse(item.children)
+    }
+  }
+  traverse(props.toc?.links)
+  return ids
+})
+
+watch(activeId, (newId) => {
+  if (!newId) return
+  const index = flatIds.value.indexOf(newId)
+  if (index !== -1) {
+    const total = flatIds.value.length
+    if (total > 0) {
+      scrollProgress.value = ((index + 1) / total) * 100
+    }
+  }
+}, { immediate: true })
 
 onMounted(() => {
   if (props.collapsible) {
@@ -80,13 +96,10 @@ onMounted(() => {
      }
   }
   setupObserver()
-  window.addEventListener('scroll', updateProgress)
-  updateProgress()
 })
 
 onUnmounted(() => {
   cleanup()
-  window.removeEventListener('scroll', updateProgress)
 })
 </script>
 
