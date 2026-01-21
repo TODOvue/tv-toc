@@ -175,6 +175,7 @@ import { TvToc } from '@todovue/tv-toc'
 |-----------------|---------|------------|----------------------------------------------------------------------------|----------|
 | toc             | Object  | -          | TOC configuration: title and list of links (with optional nested children) | `true`   |
 | marker          | Boolean | `false`    | Whether to display a visual marker for the active item.                    | `false`  |
+| collapsible     | Boolean | `false`    | Whether sublists can be collapsed/expanded.                                | `false`  |
 | activeClass     | String  | `'active'` | Custom CSS class for the active item.                                      | `false`  |
 | observerOptions | Object  | `{}`       | options to pass to the IntersectionObserver (rootMargin, threshold, etc).  | `false`  |
 
