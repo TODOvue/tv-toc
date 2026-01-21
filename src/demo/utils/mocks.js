@@ -86,6 +86,48 @@ const tocExample2 = {
   ]
 }
 
+const tocExample3 = {
+  "title": "Collapsible TOC",
+  "links": [
+    {
+      "id": "getting-started",
+      "text": "Getting Started",
+      "children": [
+        {
+          "id": "installation",
+          "text": "Installation"
+        },
+        {
+          "id": "configuration",
+          "text": "Configuration"
+        }
+      ]
+    },
+    {
+      "id": "components",
+      "text": "Components",
+      "children": [
+        {
+          "id": "button",
+          "text": "Button"
+        },
+        {
+          "id": "input",
+          "text": "Input"
+        },
+        {
+          "id": "card",
+          "text": "Card"
+        }
+      ]
+    },
+    {
+      "id": "support",
+      "text": "Support"
+    }
+  ]
+}
+
 export const demos = [
   {
     id: 1,
@@ -105,4 +147,29 @@ export const demos = [
     },
     html: SimpleDoc,
   },
+  {
+    id: 3,
+    title: 'Custom & Marker',
+    description: 'TOC with visual marker and custom active class.',
+    propsData: {
+      toc: tocExample2,
+      marker: true,
+      activeClass: 'custom-active-class',
+      observerOptions: {
+        rootMargin: '0px 0px -50% 0px'
+      }
+    },
+    html: SimpleDoc,
+  },
+  {
+    id: 4,
+    title: 'Collapsible & Animated',
+    description: 'TOC with collapsible sections and smooth animations.',
+    propsData: {
+      toc: tocExample3,
+      collapsible: true,
+      marker: true
+    },
+    html: SimpleDoc,
+  }
 ];

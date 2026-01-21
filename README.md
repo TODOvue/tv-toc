@@ -16,13 +16,12 @@ A lightweight Vue 3 component to render a Table of Contents (TOC) for your artic
 
 > Demo: https://ui.todovue.blog/toc
 
----
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
 - [Usage of Styles](#usage-of-styles)
 - [Quick Start (SPA)](#quick-start-spa)
-- [Nuxt 3 / SSR Usage](#nuxt-3--ssr-usage)
+- [Nuxt 4 / SSR Usage](#nuxt-4--ssr-usage)
 - [Component Registration Options](#component-registration-options)
 - [Props](#props)
 - [Composable: useToc](#composable-usetoc)
@@ -33,7 +32,6 @@ A lightweight Vue 3 component to render a Table of Contents (TOC) for your artic
 - [Contributing](#contributing)
 - [License](#license)
 
----
 ## Features
 - Simple and focused Table of Contents (TOC) component for Vue 3.
 - Supports nested sections via children links.
@@ -42,7 +40,6 @@ A lightweight Vue 3 component to render a Table of Contents (TOC) for your artic
 - Works in SPA (Vite, Vue CLI) and Nuxt 3 (with client-side rendering constraints).
 - Ships with minimal, customizable styles.
 
----
 ## Installation
 Using npm:
 ```bash
@@ -57,7 +54,6 @@ Using pnpm:
 pnpm add @todovue/tv-toc
 ```
 
----
 ## Usage of Styles
 
 ### Vue/Vite (SPA)
@@ -86,7 +82,6 @@ export default defineNuxtConfig({
 })
 ```
 
----
 ## Quick Start (SPA)
 Global registration (main.js / main.ts):
 ```js
@@ -139,8 +134,7 @@ const toc = {
 </template>
 ```
 
----
-## Nuxt 3 / SSR Usage
+## Nuxt 4 / SSR Usage
 Create a plugin file: `plugins/tv-toc.client.ts` (client-only because it uses `document` and `history` under the hood when scrolling):
 ```ts
 import { defineNuxtPlugin } from '#app'
@@ -169,7 +163,6 @@ import { TvToc } from '@todovue/tv-toc'
 </template>
 ```
 
----
 ## Component Registration Options
 | Approach                                      | When to use                       |
 |-----------------------------------------------|-----------------------------------|
@@ -177,11 +170,14 @@ import { TvToc } from '@todovue/tv-toc'
 | Local named import `{ TvToc }`                | Isolated/code-split contexts      |
 | Direct default import `import TvToc from ...` | Single use or manual registration |
 
----
 ## Props
-| Name | Type   | Default | Description                                                                | Required |
-|------|--------|---------|----------------------------------------------------------------------------|----------|
-| toc  | Object | -       | TOC configuration: title and list of links (with optional nested children) | `true`   |
+| Name            | Type    | Default    | Description                                                                | Required |
+|-----------------|---------|------------|----------------------------------------------------------------------------|----------|
+| toc             | Object  | -          | TOC configuration: title and list of links (with optional nested children) | `true`   |
+| marker          | Boolean | `false`    | Whether to display a visual marker for the active item.                    | `false`  |
+| collapsible     | Boolean | `false`    | Whether sublists can be collapsed/expanded.                                | `false`  |
+| activeClass     | String  | `'active'` | Custom CSS class for the active item.                                      | `false`  |
+| observerOptions | Object  | `{}`       | options to pass to the IntersectionObserver (rootMargin, threshold, etc).  | `false`  |
 
 ### `toc` shape
 ```ts
@@ -200,16 +196,17 @@ type Toc = {
 - `links`: Array of top-level sections.
   - `id`: Must match the `id` attribute of the target heading in your content.
   - `text`: Label shown in the TOC.
-  - `children`: Optional array of sub-sections, rendered as nested list.
+  - `children`: Optional array of subsections, rendered as nested list.
 
----
 ## Composable: `useToc`
 This composable is used internally by `TvToc` but can also be imported directly if needed.
 
 ```ts
 import { useToc } from '@todovue/tv-toc'
 
-const { formatId, scrollToId } = useToc()
+const { formatId, scrollToId } = useToc(links, {
+  rootMargin: '0px 0px -50% 0px'
+})
 ```
 
 ### API
@@ -220,7 +217,6 @@ const { formatId, scrollToId } = useToc()
 
 > Note: `scrollToId` accesses `document` and `history`, so it should run only in the browser (e.g. in event handlers or inside `onMounted`).
 
----
 ## Customization (Styles)
 The component ships with minimal default styles, exposed through the built CSS file and scoped CSS classes.
 
@@ -254,13 +250,11 @@ You can override these styles in your own global stylesheet:
 
 If you are using SCSS, you can also rely on your own design tokens and overrides. The package itself internally uses SCSS (see `src/assets/scss/_variables.scss` and `src/assets/scss/style.scss`).
 
----
 ## SSR Notes
 - The component can be rendered on the server (template is static), but scrolling behavior uses browser APIs.
 - `scrollToId` uses `document.getElementById` and `history.pushState`; these are only invoked in event handlers on the client.
 - When using Nuxt 3, prefer registering `TvToc` in a `*.client.ts` plugin or wrap usages in `<client-only>` to avoid hydration edge cases in environments with stricter SSR.
 
----
 ## Examples
 This repository includes a small demo application built with Vite.
 
@@ -269,7 +263,6 @@ This repository includes a small demo application built with Vite.
 
 To run the demo locally, see the [Development](#development) section.
 
----
 ## Development
 ```bash
 git clone https://github.com/TODOvue/tv-toc.git
@@ -285,15 +278,11 @@ To build the standalone demo used for documentation:
 npm run build:demo
 ```
 
----
 ## Contributing
 PRs and issues are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
 
----
 ## License
 MIT © TODOvue
 
----
 ### Attributions
 Crafted for the TODOvue component ecosystem
-

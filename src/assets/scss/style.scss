@@ -1,15 +1,51 @@
 @use 'variables' as *;
 
 .tv-toc {
+  position: relative;
   padding: 1rem;
   background-color: $light-card-bg;
   border-radius: 8px;
   color: $light-text;
   min-width: 200px;
+  overflow: hidden;
+
+  --toc-active-rgb: #{red($active-color)},
+  #{green($active-color)},
+  #{blue($active-color)};
+  --toc-active-color: #{$active-color};
 
   @media (prefers-color-scheme: dark) {
     background-color: $dark-card-bg;
     color: $dark-text;
+    --toc-active-rgb: #{red($active-color-dark)},
+    #{green($active-color-dark)},
+    #{blue($active-color-dark)};
+    --toc-active-color: #{$active-color-dark};
+  }
+
+  .tv-toc-progress-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: rgba($active-color, 0.1);
+    z-index: 1;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: rgba($active-color-dark, 0.1);
+    }
+  }
+
+  .tv-toc-progress-bar {
+    width: 100%;
+    background: linear-gradient(to bottom, $active-color, lighten($active-color, 20%));
+    transition: height 0.1s linear;
+    border-radius: 0 0 4px 4px;
+
+    @media (prefers-color-scheme: dark) {
+      background: linear-gradient(to bottom, $active-color-dark, lighten($active-color-dark, 20%));
+    }
   }
 
   .tv-toc-title {
@@ -27,6 +63,53 @@
   .tv-toc-item {
     margin-bottom: 0.5rem;
     position: relative;
+    opacity: 0;
+    animation: fadeSlideIn 0.5s ease forwards;
+
+    @for $i from 1 through 20 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.05}s;
+      }
+    }
+
+    .tv-toc-item-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+
+      .tv-toc-link {
+        flex: 1;
+      }
+    }
+
+    .tv-toc-toggle {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: inherit;
+      opacity: 0.6;
+      transition: all 0.2s ease;
+      border-radius: 4px;
+      margin-right: 4px;
+
+      &:hover {
+        background-color: rgba($active-color, 0.1);
+        opacity: 1;
+      }
+
+      svg {
+        transition: transform 0.3s ease;
+      }
+
+      &.is-expanded svg {
+        transform: rotate(180deg);
+      }
+    }
 
     &:hover {
       .tv-toc-link {
@@ -47,6 +130,10 @@
         .tv-toc-sublink {
           background-color: rgba($active-color-dark, 0.05);
         }
+      }
+
+      .tv-toc-toggle:hover {
+        background-color: rgba($active-color-dark, 0.1);
       }
     }
   }
@@ -69,8 +156,22 @@
       color: $active-color;
       font-weight: 700;
       background-color: rgba($active-color, 0.1);
-      border-left: 3px solid $active-color;
-      padding-left: calc(1rem - 3px);
+      padding-left: 1rem;
+      position: relative;
+      animation: toc-pulse 2s infinite;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, var(--toc-active-color), rgba(var(--toc-active-rgb), 0.2), var(--toc-active-color));
+        background-size: 100% 200%;
+        animation: border-flow 2s linear infinite;
+        border-radius: 4px 0 0 4px;
+      }
     }
 
     &.parent-active {
@@ -88,13 +189,25 @@
       &.active {
         color: $active-color-dark;
         background-color: rgba($active-color-dark, 0.1);
-        border-left-color: $active-color-dark;
       }
 
       &.parent-active {
         color: $active-color-dark;
         border-left-color: rgba($active-color-dark, 0.5);
       }
+    }
+  }
+
+  .tv-toc-sublist-wrapper {
+    overflow: hidden;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    max-height: 1000px;
+    opacity: 1;
+
+    &.is-collapsed {
+      max-height: 0;
+      opacity: 0;
+      margin-bottom: 0;
     }
   }
 
@@ -113,6 +226,14 @@
   .tv-toc-subitem {
     margin-bottom: 0.25rem;
     position: relative;
+    opacity: 0;
+    animation: fadeSlideIn 0.5s ease forwards;
+
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.05 + 0.3}s;
+      }
+    }
   }
 
   .tv-toc-sublink {
@@ -136,8 +257,22 @@
       color: $active-color;
       font-weight: 700;
       background-color: rgba($active-color, 0.1);
-      border-left: 3px solid $active-color;
-      padding-left: calc(1rem - 3px);
+      padding-left: 1rem;
+      position: relative;
+      animation: toc-pulse 2s infinite;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, var(--toc-active-color), rgba(var(--toc-active-rgb), 0.2), var(--toc-active-color));
+        background-size: 100% 200%;
+        animation: border-flow 2s linear infinite;
+        border-radius: 4px 0 0 4px;
+      }
     }
 
     @media (prefers-color-scheme: dark) {
@@ -148,7 +283,6 @@
       &.active {
         color: $active-color-dark;
         background-color: rgba($active-color-dark, 0.1);
-        border-left-color: $active-color-dark;
       }
     }
   }
@@ -158,6 +292,10 @@
   .tv-toc {
     background-color: $light-card-bg;
     color: $light-text;
+    --toc-active-rgb: #{red($active-color)},
+    #{green($active-color)},
+    #{blue($active-color)};
+    --toc-active-color: #{$active-color};
 
     .tv-toc-link:hover {
       color: $active-color;
@@ -166,7 +304,6 @@
     .tv-toc-link.active,
     .tv-toc-link.parent-active {
       color: $active-color;
-      border-left-color: $active-color;
     }
 
     .tv-toc-link.parent-active {
@@ -181,9 +318,47 @@
     .tv-toc-sublink.active {
       color: $active-color;
     }
+  }
+}
 
-    .tv-toc-sublink.active {
-      border-left-color: $active-color;
-    }
+.tv-toc-marker {
+  border-left: 2px solid var(--tv-toc-active-color, #3b82f6);
+  padding-left: 8px;
+  transition: all 0.2s ease;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toc-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--toc-active-rgb), 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 6px rgba(var(--toc-active-rgb), 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--toc-active-rgb), 0);
+  }
+}
+
+@keyframes border-flow {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 0 200%;
   }
 }
