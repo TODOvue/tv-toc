@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `observerOptions` prop to customize IntersectionObserver behavior (rootMargin, threshold).
 - Introduced a scroll progress indicator to the Table of Contents, providing a visual cue of the user's current position within the document.
 - Implemented collapsible sections in the Table of Contents, allowing users to toggle the visibility of subsections for a cleaner, more focused navigation experience.
+- Introduced animated active indicators to the Table of Contents, providing smooth transitions as the user scrolls through different sections.
+- Added customizable color properties for ToC elements, allowing for deeper integration with specific brand palettes.
 
 ### Dependencies
 - Updated `@todovue/tv-demo` to `^1.4.4`.
