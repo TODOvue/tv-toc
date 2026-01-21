@@ -105,4 +105,18 @@ export const demos = [
     },
     html: SimpleDoc,
   },
+  {
+    id: 3,
+    title: 'Custom & Marker',
+    description: 'TOC with visual marker and custom active class.',
+    propsData: {
+      toc: tocExample2,
+      marker: true,
+      activeClass: 'custom-active-class',
+      observerOptions: {
+        rootMargin: '0px 0px -50% 0px'
+      }
+    },
+    html: SimpleDoc,
+  },
 ];

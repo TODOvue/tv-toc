@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-export const useToc = (tocLinks = []) => {
+export const useToc = (tocLinks = [], observerOptions = {}) => {
   const activeId = ref(null)
   const activeParentId = ref(null)
   let observer = null
@@ -46,7 +46,7 @@ export const useToc = (tocLinks = []) => {
           if (entry.isIntersecting) {
             const id = entry.target.id
             const linkInfo = allIds.find(item => item.id === id)
-            
+
             if (linkInfo) {
               activeId.value = id
               activeParentId.value = linkInfo.parentId
@@ -57,7 +57,8 @@ export const useToc = (tocLinks = []) => {
       },
       {
         rootMargin: '-20% 0px -70% 0px',
-        threshold: 0
+        threshold: 0,
+        ...observerOptions
       }
     )
 

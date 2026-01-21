@@ -6,10 +6,22 @@ const props = defineProps({
   toc: {
     type: Object,
     required: true
+  },
+  marker: {
+    type: Boolean,
+    default: false
+  },
+  activeClass: {
+    type: String,
+    default: 'active'
+  },
+  observerOptions: {
+    type: Object,
+    default: () => ({})
   }
 })
 
-const { scrollToId, activeId, activeParentId, setupObserver, cleanup } = useToc(props.toc?.links || [])
+const { scrollToId, activeId, activeParentId, setupObserver, cleanup } = useToc(props.toc?.links || [], props.observerOptions)
 
 const handleClick = (id) => {
   scrollToId(id)
@@ -46,8 +58,9 @@ onUnmounted(() => {
           :href="`#${link.id}`"
           class="tv-toc-link"
           :class="{
-            'active': isActive(link.id),
-            'parent-active': isParentOfActive(link.id)
+            [props.activeClass]: isActive(link.id),
+            'parent-active': isParentOfActive(link.id),
+            'tv-toc-marker': marker && isActive(link.id)
           }"
           @click.prevent="handleClick(link.id)"
         >
@@ -58,7 +71,10 @@ onUnmounted(() => {
             <a
               :href="`#${subLink.id}`"
               class="tv-toc-sublink"
-              :class="{ 'active': isActive(subLink.id) }"
+              :class="{
+                [props.activeClass]: isActive(subLink.id),
+                'tv-toc-marker': marker && isActive(subLink.id)
+              }"
               @click.prevent="handleClick(subLink.id)"
             >
               {{ subLink.text }}
