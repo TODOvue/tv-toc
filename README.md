@@ -171,9 +171,12 @@ import { TvToc } from '@todovue/tv-toc'
 | Direct default import `import TvToc from ...` | Single use or manual registration |
 
 ## Props
-| Name | Type   | Default | Description                                                                | Required |
-|------|--------|---------|----------------------------------------------------------------------------|----------|
-| toc  | Object | -       | TOC configuration: title and list of links (with optional nested children) | `true`   |
+| Name            | Type    | Default    | Description                                                                | Required |
+|-----------------|---------|------------|----------------------------------------------------------------------------|----------|
+| toc             | Object  | -          | TOC configuration: title and list of links (with optional nested children) | `true`   |
+| marker          | Boolean | `false`    | Whether to display a visual marker for the active item.                    | `false`  |
+| activeClass     | String  | `'active'` | Custom CSS class for the active item.                                      | `false`  |
+| observerOptions | Object  | `{}`       | options to pass to the IntersectionObserver (rootMargin, threshold, etc).  | `false`  |
 
 ### `toc` shape
 ```ts
@@ -200,7 +203,9 @@ This composable is used internally by `TvToc` but can also be imported directly 
 ```ts
 import { useToc } from '@todovue/tv-toc'
 
-const { formatId, scrollToId } = useToc()
+const { formatId, scrollToId } = useToc(links, {
+  rootMargin: '0px 0px -50% 0px'
+})
 ```
 
 ### API
