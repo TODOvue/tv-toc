@@ -22,6 +22,10 @@ const props = defineProps({
   collapsible: {
     type: Boolean,
     default: false
+  },
+  compact: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -104,75 +108,77 @@ onUnmounted(() => {
 </script>
 
 <template>
-<nav class="tv-toc">
-    <div class="tv-toc-progress-container" v-if="toc?.links?.length">
-      <div
-        class="tv-toc-progress-bar"
-        :style="{ height: `${scrollProgress}%` }"
-      ></div>
-    </div>
+<nav class="tv-toc" :class="{ compact }">
     <h3 v-if="toc?.title" class="tv-toc-title">{{ toc.title }}</h3>
-    <ul class="tv-toc-list">
-      <li v-for="link in toc?.links" :key="link.id" class="tv-toc-item">
-        <div class="tv-toc-item-content">
-          <a
-            :href="`#${link.id}`"
-            class="tv-toc-link"
-            :class="{
-              [props.activeClass]: isActive(link.id),
-              'parent-active': isParentOfActive(link.id),
-              'tv-toc-marker': marker && isActive(link.id)
-            }"
-            @click.prevent="handleClick(link.id)"
-          >
-            {{ link.text }}
-          </a>
-          <button
-            v-if="collapsible && link.children && link.children.length"
-            class="tv-toc-toggle"
-            :class="{ 'is-expanded': isExpanded(link.id) }"
-            @click.stop="toggle(link.id)"
-            aria-label="Toggle section"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-        </div>
-
+    <div class="tv-toc-body">
+      <div class="tv-toc-progress-container" v-if="toc?.links?.length">
         <div
-          v-if="link.children"
-          class="tv-toc-sublist-wrapper"
-          :class="{ 'is-collapsed': collapsible && !isExpanded(link.id) }"
-          :style="collapsible ? { '--content-height': isExpanded(link.id) ? '1000px' : '0px' } : {}"
-        >
-          <ul class="tv-toc-sublist">
-            <li v-for="subLink in link.children" :key="subLink.id" class="tv-toc-subitem">
-              <a
-                :href="`#${subLink.id}`"
-                class="tv-toc-sublink"
-                :class="{
-                  [props.activeClass]: isActive(subLink.id),
-                  'tv-toc-marker': marker && isActive(subLink.id)
-                }"
-                @click.prevent="handleClick(subLink.id)"
+          class="tv-toc-progress-bar"
+          :style="{ height: `${scrollProgress}%` }"
+        ></div>
+      </div>
+      <ul class="tv-toc-list">
+        <li v-for="link in toc?.links" :key="link.id" class="tv-toc-item">
+          <div class="tv-toc-item-content">
+            <a
+              :href="`#${link.id}`"
+              class="tv-toc-link"
+              :class="{
+                [props.activeClass]: isActive(link.id),
+                'parent-active': isParentOfActive(link.id),
+                'tv-toc-marker': marker && isActive(link.id)
+              }"
+              @click.prevent="handleClick(link.id)"
+            >
+              {{ link.text }}
+            </a>
+            <button
+              v-if="collapsible && link.children && link.children.length"
+              class="tv-toc-toggle"
+              :class="{ 'is-expanded': isExpanded(link.id) }"
+              @click.stop="toggle(link.id)"
+              aria-label="Toggle section"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               >
-               {{ subLink.text }}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <div
+            v-if="link.children"
+            class="tv-toc-sublist-wrapper"
+            :class="{ 'is-collapsed': collapsible && !isExpanded(link.id) }"
+            :style="collapsible ? { '--content-height': isExpanded(link.id) ? '1000px' : '0px' } : {}"
+          >
+            <ul class="tv-toc-sublist">
+              <li v-for="subLink in link.children" :key="subLink.id" class="tv-toc-subitem">
+                <a
+                  :href="`#${subLink.id}`"
+                  class="tv-toc-sublink"
+                  :class="{
+                    [props.activeClass]: isActive(subLink.id),
+                    'tv-toc-marker': marker && isActive(subLink.id)
+                  }"
+                  @click.prevent="handleClick(subLink.id)"
+                >
+                 {{ subLink.text }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
   </nav>
 </template>

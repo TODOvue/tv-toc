@@ -1,5 +1,6 @@
 import FullBlog from './demos/fullBlog.vue?raw';
 import SimpleDoc from './demos/simpleBlog.vue?raw';
+import FullBlogCompact from './demos/fullBlogCompact.vue?raw';
 
 const tocExample1 = {
   "title": "Table of Contents",
@@ -137,6 +138,16 @@ export const demos = [
       toc: tocExample1,
     },
     html: FullBlog,
+  },
+  {
+    id: 5,
+    title: 'Full Blog Post TOC (Compact)',
+    description: 'Table of Contents for a full blog post layout. (Compact Version)',
+    propsData: {
+      toc: tocExample1,
+      compact: true,
+    },
+    html: FullBlogCompact,
   },
   {
     id: 2,

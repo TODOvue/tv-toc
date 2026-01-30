@@ -2,13 +2,14 @@
 
 .tv-toc {
   position: relative;
-  padding: 1rem;
+  padding: 0;
   background-color: $light-card-bg;
   border-radius: 8px;
   color: $light-text;
   min-width: 200px;
   overflow: hidden;
 
+  // ... (color vars omit for brevity if not changing, but replace_file needs contiguous block. I will include vars)
   --toc-active-rgb: #{red($active-color)},
   #{green($active-color)},
   #{blue($active-color)};
@@ -21,6 +22,18 @@
     #{green($active-color-dark)},
     #{blue($active-color-dark)};
     --toc-active-color: #{$active-color-dark};
+  }
+
+  .tv-toc-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1rem 1rem 0.5rem 1rem;
+    padding-left: 0;
+  }
+
+  .tv-toc-body {
+    position: relative;
+    padding: 0 1rem 1rem 1rem;
   }
 
   .tv-toc-progress-container {
@@ -48,241 +61,377 @@
     }
   }
 
-  .tv-toc-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
+  // ... (List styles unchanged, can keep existing block if I don't touch them?
+  // Wait, I am replacing a huge chunk. I need to be careful.
+  // I will replace from start of .tv-toc block to start of list styles.)
 
   .tv-toc-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+    //...
 
-  .tv-toc-item {
-    margin-bottom: 0.5rem;
-    position: relative;
-    opacity: 0;
-    animation: fadeSlideIn 0.5s ease forwards;
 
-    @for $i from 1 through 20 {
-      &:nth-child(#{$i}) {
-        animation-delay: #{$i * 0.05}s;
-      }
+    .tv-toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
 
-    .tv-toc-item-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
+    .tv-toc-item {
+      margin-bottom: 0.5rem;
+      position: relative;
+      opacity: 0;
+      animation: fadeSlideIn 0.5s ease forwards;
 
-      .tv-toc-link {
-        flex: 1;
-      }
-    }
-
-    .tv-toc-toggle {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: inherit;
-      opacity: 0.6;
-      transition: all 0.2s ease;
-      border-radius: 4px;
-      margin-right: 4px;
-
-      &:hover {
-        background-color: rgba($active-color, 0.1);
-        opacity: 1;
+      @for $i from 1 through 20 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{$i * 0.05}s;
+        }
       }
 
-      svg {
-        transition: transform 0.3s ease;
+      .tv-toc-item-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+
+        .tv-toc-link {
+          flex: 1;
+        }
       }
 
-      &.is-expanded svg {
-        transform: rotate(180deg);
-      }
-    }
+      .tv-toc-toggle {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: inherit;
+        opacity: 0.6;
+        transition: all 0.2s ease;
+        border-radius: 4px;
+        margin-right: 4px;
 
-    &:hover {
-      .tv-toc-link {
-        background-color: rgba($active-color, 0.05);
+        &:hover {
+          background-color: rgba($active-color, 0.1);
+          opacity: 1;
+        }
+
+        svg {
+          transition: transform 0.3s ease;
+        }
+
+        &.is-expanded svg {
+          transform: rotate(180deg);
+        }
       }
 
-      .tv-toc-sublink {
-        background-color: rgba($active-color, 0.05);
-      }
-    }
-
-    @media (prefers-color-scheme: dark) {
       &:hover {
         .tv-toc-link {
-          background-color: rgba($active-color-dark, 0.05);
+          background-color: rgba($active-color, 0.05);
         }
 
         .tv-toc-sublink {
-          background-color: rgba($active-color-dark, 0.05);
+          background-color: rgba($active-color, 0.05);
         }
       }
 
-      .tv-toc-toggle:hover {
-        background-color: rgba($active-color-dark, 0.1);
-      }
-    }
-  }
+      @media (prefers-color-scheme: dark) {
+        &:hover {
+          .tv-toc-link {
+            background-color: rgba($active-color-dark, 0.05);
+          }
 
-  .tv-toc-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    font-weight: 500;
-    padding: 0.5rem 0.75rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    position: relative;
+          .tv-toc-sublink {
+            background-color: rgba($active-color-dark, 0.05);
+          }
+        }
 
-    &:hover {
-      color: $active-color;
-    }
-
-    &.active {
-      color: $active-color;
-      font-weight: 700;
-      background-color: rgba($active-color, 0.1);
-      padding-left: 1rem;
-      position: relative;
-      animation: toc-pulse 2s infinite;
-
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background: linear-gradient(180deg, var(--toc-active-color), rgba(var(--toc-active-rgb), 0.2), var(--toc-active-color));
-        background-size: 100% 200%;
-        animation: border-flow 2s linear infinite;
-        border-radius: 4px 0 0 4px;
+        .tv-toc-toggle:hover {
+          background-color: rgba($active-color-dark, 0.1);
+        }
       }
     }
 
-    &.parent-active {
-      color: $active-color;
+    .tv-toc-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
       font-weight: 500;
-      border-left: 2px solid rgba($active-color, 0.5);
-      padding-left: calc(1rem - 2px);
-    }
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
 
-    @media (prefers-color-scheme: dark) {
       &:hover {
-        color: $active-color-dark;
+        color: $active-color;
       }
 
       &.active {
-        color: $active-color-dark;
-        background-color: rgba($active-color-dark, 0.1);
+        color: $active-color;
+        font-weight: 700;
+        background-color: rgba($active-color, 0.1);
+        padding-left: 1rem;
+        position: relative;
+        animation: toc-pulse 2s infinite;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background: linear-gradient(180deg, var(--toc-active-color), rgba(var(--toc-active-rgb), 0.2), var(--toc-active-color));
+          background-size: 100% 200%;
+          animation: border-flow 2s linear infinite;
+          border-radius: 4px 0 0 4px;
+        }
       }
 
       &.parent-active {
-        color: $active-color-dark;
-        border-left-color: rgba($active-color-dark, 0.5);
+        color: $active-color;
+        font-weight: 500;
+        border-left: 2px solid rgba($active-color, 0.5);
+        padding-left: calc(1rem - 2px);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        &:hover {
+          color: $active-color-dark;
+        }
+
+        &.active {
+          color: $active-color-dark;
+          background-color: rgba($active-color-dark, 0.1);
+        }
+
+        &.parent-active {
+          color: $active-color-dark;
+          border-left-color: rgba($active-color-dark, 0.5);
+        }
       }
     }
-  }
 
-  .tv-toc-sublist-wrapper {
-    overflow: hidden;
-    transition: opacity 0.3s ease, max-height 0.3s ease;
-    max-height: 1000px;
-    opacity: 1;
+    .tv-toc-sublist-wrapper {
+      overflow: hidden;
+      transition: opacity 0.3s ease, max-height 0.3s ease;
+      max-height: 1000px;
+      opacity: 1;
 
-    &.is-collapsed {
-      max-height: 0;
-      opacity: 0;
-      margin-bottom: 0;
-    }
-  }
-
-  .tv-toc-sublist {
-    list-style: none;
-    padding-left: 1rem;
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-    border-left: 2px solid rgba($light-text, 0.1);
-
-    @media (prefers-color-scheme: dark) {
-      border-left-color: rgba($dark-text, 0.1);
-    }
-  }
-
-  .tv-toc-subitem {
-    margin-bottom: 0.25rem;
-    position: relative;
-    opacity: 0;
-    animation: fadeSlideIn 0.5s ease forwards;
-
-    @for $i from 1 through 10 {
-      &:nth-child(#{$i}) {
-        animation-delay: #{$i * 0.05 + 0.3}s;
+      &.is-collapsed {
+        max-height: 0;
+        opacity: 0;
+        margin-bottom: 0;
       }
     }
-  }
 
-  .tv-toc-sublink {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    font-size: 0.9rem;
-    opacity: 0.8;
-    padding: 0.4rem 0.75rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    position: relative;
-
-    &:hover {
-      opacity: 1;
-      color: $active-color;
-    }
-
-    &.active {
-      opacity: 1;
-      color: $active-color;
-      font-weight: 700;
-      background-color: rgba($active-color, 0.1);
+    .tv-toc-sublist {
+      list-style: none;
       padding-left: 1rem;
-      position: relative;
-      animation: toc-pulse 2s infinite;
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+      border-left: 2px solid rgba($light-text, 0.1);
 
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background: linear-gradient(180deg, var(--toc-active-color), rgba(var(--toc-active-rgb), 0.2), var(--toc-active-color));
-        background-size: 100% 200%;
-        animation: border-flow 2s linear infinite;
-        border-radius: 4px 0 0 4px;
+      @media (prefers-color-scheme: dark) {
+        border-left-color: rgba($dark-text, 0.1);
       }
     }
 
-    @media (prefers-color-scheme: dark) {
+    .tv-toc-subitem {
+      margin-bottom: 0.25rem;
+      position: relative;
+      opacity: 0;
+      animation: fadeSlideIn 0.5s ease forwards;
+
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{$i * 0.05 + 0.3}s;
+        }
+      }
+    }
+
+    .tv-toc-sublink {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      padding: 0.4rem 0.75rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
+
       &:hover {
-        color: $active-color-dark;
+        opacity: 1;
+        color: $active-color;
       }
 
       &.active {
-        color: $active-color-dark;
-        background-color: rgba($active-color-dark, 0.1);
+        opacity: 1;
+        color: $active-color;
+        font-weight: 700;
+        background-color: rgba($active-color, 0.1);
+        padding-left: 1rem;
+        position: relative;
+        animation: toc-pulse 2s infinite;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 3px;
+          background: linear-gradient(180deg, var(--toc-active-color), rgba(var(--toc-active-rgb), 0.2), var(--toc-active-color));
+          background-size: 100% 200%;
+          animation: border-flow 2s linear infinite;
+          border-radius: 4px 0 0 4px;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        &:hover {
+          color: $active-color-dark;
+        }
+
+        &.active {
+          color: $active-color-dark;
+          background-color: rgba($active-color-dark, 0.1);
+        }
+      }
+    }
+  }
+
+  &.compact {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    min-width: auto;
+
+    .tv-toc-title {
+      font-size: 1rem;
+      margin: 0 0 0.5rem 0;
+      padding-left: 0;
+      opacity: 0.8;
+    }
+
+    .tv-toc-body {
+      padding: 0;
+    }
+
+    .tv-toc-progress-container {
+      width: 2px;
+      left: 0;
+      background-color: rgba($light-text, 0.1);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: rgba($dark-text, 0.1);
+      }
+    }
+
+    .tv-toc-progress-bar {
+      border-radius: 0;
+      background: $active-color;
+
+      @media (prefers-color-scheme: dark) {
+        background: $active-color-dark;
+      }
+    }
+
+    .tv-toc-list {
+      margin: 0;
+    }
+
+    .tv-toc-item {
+      margin-bottom: 0;
+      animation: none;
+      opacity: 1;
+
+      .tv-toc-link {
+        padding: 0.35rem 1rem;
+        font-size: 0.9rem;
+
+        &:hover {
+          background-color: transparent;
+          color: $active-color;
+        }
+
+        &.active {
+          background-color: transparent;
+          animation: none;
+          padding-left: 1rem;
+          font-weight: 600;
+          color: $active-color;
+
+          &::before {
+            display: none;
+          }
+        }
+
+        &.parent-active {
+          border-left: none;
+          padding-left: 1rem;
+          color: $active-color;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .tv-toc-link:hover {
+          color: $active-color-dark;
+        }
+
+        .tv-toc-link.active {
+          color: $active-color-dark;
+        }
+
+        .tv-toc-link.parent-active {
+          color: $active-color-dark;
+        }
+      }
+    }
+
+    .tv-toc-sublist {
+      border-left: none;
+      padding-left: 0;
+      margin: 0;
+
+      .tv-toc-subitem {
+        margin-bottom: 0;
+        animation: none;
+        opacity: 1;
+      }
+
+      .tv-toc-sublink {
+        padding: 0.25rem 1rem 0.25rem 1.5rem;
+        font-size: 0.85rem;
+
+        &:hover {
+          background-color: transparent;
+          color: $active-color;
+        }
+
+        &.active {
+          background-color: transparent;
+          animation: none;
+          padding-left: 1.5rem;
+          font-weight: 600;
+          color: $active-color;
+
+          &::before {
+            display: none;
+          }
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .tv-toc-sublink:hover {
+          color: $active-color-dark;
+        }
+
+        .tv-toc-sublink.active {
+          color: $active-color-dark;
+        }
       }
     }
   }
