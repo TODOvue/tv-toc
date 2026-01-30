@@ -177,6 +177,7 @@ import { TvToc } from '@todovue/tv-toc'
 | marker          | Boolean | `false`    | Whether to display a visual marker for the active item.                    | `false`  |
 | collapsible     | Boolean | `false`    | Whether sublists can be collapsed/expanded.                                | `false`  |
 | activeClass     | String  | `'active'` | Custom CSS class for the active item.                                      | `false`  |
+| compact         | Boolean | `false`    | Applies a compact style similar to Nuxt Content's TOC.                     | `false`  |
 | observerOptions | Object  | `{}`       | options to pass to the IntersectionObserver (rootMargin, threshold, etc).  | `false`  |
 
 ### `toc` shape

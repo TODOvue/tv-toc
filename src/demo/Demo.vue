@@ -15,6 +15,6 @@ const TvToc = defineAsyncComponent(/* webpackChunkName: "tvToc" */() => import('
     npm-install="@todovue/tv-toc"
     source-link="https://github.com/TODOvue/tv-toc"
     url-clone="https://github.com/TODOvue/tv-toc.git"
-    version="1.1.1"
+    version="1.2.0"
   />
 </template>

@@ -5,6 +5,14 @@ All notable changes to `@todovue/tv-toc` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-01-30
+
+### Added
+- Added a compact mode option to the Table of Contents component.
+
+### Changed
+- Updated the visual styles for the Table of Contents component.
+
 ## [1.1.1] - 2026-01-27
 
 ### Changed
@@ -73,6 +81,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Minimal default styles and BEM-like CSS classes for easy customization.
 - Vite demo with basic and blog-like TOC examples.
 
+[1.2.0]: https://github.com/TODOvue/tv-toc/pull/6/files
 [1.1.1]: https://github.com/TODOvue/tv-toc/pull/5/files
 [1.1.0]: https://github.com/TODOvue/tv-toc/pull/4/files
 [1.0.2]: https://github.com/TODOvue/tv-toc/pull/3/files
