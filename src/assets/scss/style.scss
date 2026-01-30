@@ -9,7 +9,6 @@
   min-width: 200px;
   overflow: hidden;
 
-  // ... (color vars omit for brevity if not changing, but replace_file needs contiguous block. I will include vars)
   --toc-active-rgb: #{red($active-color)},
   #{green($active-color)},
   #{blue($active-color)};
@@ -61,14 +60,7 @@
     }
   }
 
-  // ... (List styles unchanged, can keep existing block if I don't touch them?
-  // Wait, I am replacing a huge chunk. I need to be careful.
-  // I will replace from start of .tv-toc block to start of list styles.)
-
   .tv-toc-list {
-    //...
-
-
     .tv-toc-list {
       list-style: none;
       padding: 0;
